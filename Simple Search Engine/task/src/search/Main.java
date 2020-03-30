@@ -11,9 +11,9 @@ public class Main {
         System.out.println("Enter the number of people: ");
         int num = scanner.nextInt();
         System.out.println("Enter all people: ");
-        List<People> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         while (num >= 0) {
-            list.add(new People(scanner.nextLine().split(" ")));
+            list.add(scanner.nextLine());
             num--;
         }
         System.out.println("\nEnter the number of search queries: ");
@@ -21,16 +21,16 @@ public class Main {
         while (num >= 0) {
             System.out.println("\nEnter data to search people: ");
             String find = scanner.next();
-            List<People> result = new ArrayList<>();
-            for (People item : list) {
-                if (item.contains(find)) {
+            List<String> result = new ArrayList<>();
+            for (String item : list) {
+                if (item.toLowerCase().replaceAll(" ", "").contains(find.toLowerCase())) {
                     result.add(item);
                 }
             }
             if (result.size() > 0) {
                 System.out.println("\nFound people: ");
-                for (People item : result) {
-                    System.out.println(item.toString());
+                for (String item : result) {
+                    System.out.println(item);
                 }
             } else {
                 System.out.println("\nNo matching people found.");
