@@ -18,18 +18,18 @@ public class Main {
         }
         while (true) {
             System.out.println(
-                    "=== Menu ===\n" +
+                    "\n=== Menu ===\n" +
                     "1. Find a person\n" +
                     "2. Print all people\n" +
                     "0. Exit");
-            int menu = scanner.nextInt();
+            int menu = Integer.parseInt(scanner.nextLine());
             switch (menu) {
                 case 0:
-                    System.out.println("Bye!");
+                    System.out.println("\nBye!");
                     return;
                 case 1:
-                    System.out.println("Enter a name or email to search all suitable people.");
-                    String find = scanner.next();
+                    System.out.println("\nEnter a name or email to search all suitable people.");
+                    String find = scanner.nextLine();
                     List<String> result = new ArrayList<>();
                     for (String item : list) {
                         if (item.toLowerCase().replaceAll(" ", "").contains(find.toLowerCase())) {
@@ -45,13 +45,13 @@ public class Main {
                     }
                     break;
                 case 2:
-                    System.out.println("=== List of people ===");
+                    System.out.println("\n=== List of people ===");
                     for (String item : list) {
                         System.out.println(item);
                     }
                     break;
                 default:
-                    System.out.println("Incorrect option! Try again.");
+                    System.out.println("\nIncorrect option! Try again.");
             }
         }
     }
