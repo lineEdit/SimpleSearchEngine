@@ -1,73 +1,77 @@
 package search;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class People {
-    Integer key;
-    Map<Integer, String> firstName;
-    Map<Integer, String> lastName;
-    Map<Integer, String> email;
+    String firstName;
+    String lastName;
+    String email;
 
-    enum Value {
-        firstName,
-        lastName,
-        email
-    }
-
-    public People() {
-        key = 0;
-        this.firstName = new HashMap<>();
-        this.lastName = new HashMap<>();
-        this.email = new HashMap<>();
-    }
-
-    public void add(String[] args) {
-        if (args.length == 3) {
-            add(args[0], args[1], args[2]);
+    public People(String[] args) {
+        if(args.length == 3) {
+            this.firstName = args[0];
+            this.lastName = args[1];
+            this.email = args[2];
         }
-        if (args.length == 2) {
-            add(args[0], args[1]);
+        if(args.length == 2) {
+            this.firstName = args[0];
+            this.lastName = args[1];
+            this.email = "";
+        }
+        if(args.length == 1) {
+            this.firstName = args[0];
+            this.lastName = "";
+            this.email = "";
         }
     }
 
-    public void add(String firstName, String lastName, String email) {
-        this.firstName.put(key, firstName);
-        this.lastName.put(key, lastName);
-        this.email.put(key, email);
-        ++key;
+
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void add(String firstName, String lastName) {
-        this.firstName.put(key, firstName);
-        this.lastName.put(key, lastName);
-        this.email.put(key, "");
-        ++key;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    private List<Integer> findValue(Value value, String find) {
-        Map<Integer, String> map = new HashMap<>();
-        switch (value) {
-            case firstName: map = firstName; break;
-            case lastName: map = lastName; break;
-            case email: map = email; break;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String[] get() {
+        return new String[]{getFirstName(), getLastName(), getEmail()};
+    }
+
+    public boolean contains(String find) {
+        boolean flag = false;
+        if (getFirstName().compareToIgnoreCase(find) == 0) {
+            return true;
         }
-        List<Integer> list = new ArrayList<>();
-        for (var item : map.entrySet()) {
-            if (item.getValue().compareToIgnoreCase(find) == 0) {
-                list.add(item.getKey());
-            }
+        if (getLastName().compareToIgnoreCase(find) == 0) {
+            return true;
         }
-        return list;
+        if (getEmail().compareToIgnoreCase(find) == 0) {
+            return true;
+        }
+        return flag;
     }
 
-    public List<Integer> findValue(String find) {
-        List<Integer> list = new ArrayList<>();
-        list.addAll(findValue(Value.firstName, find));
-        list.addAll(findValue(Value.lastName, find));
-        list.addAll(findValue(Value.email, find));
-        return list;
+    @Override
+    public String toString() {
+        return firstName + ' '
+                + lastName + ' '
+                + email
+                ;
+
     }
 }
