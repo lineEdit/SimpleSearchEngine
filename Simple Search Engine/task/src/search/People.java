@@ -53,17 +53,9 @@ public class People {
     }
 
     public boolean contains(String find) {
-        boolean flag = false;
-        if (getFirstName().compareToIgnoreCase(find) == 0) {
-            return true;
-        }
-        if (getLastName().compareToIgnoreCase(find) == 0) {
-            return true;
-        }
-        if (getEmail().compareToIgnoreCase(find) == 0) {
-            return true;
-        }
-        return flag;
+        return getFirstName().contains(find)
+                || getLastName().contains(find)
+                || getEmail().contains(find);
     }
 
     @Override

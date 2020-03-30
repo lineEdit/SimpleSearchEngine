@@ -16,10 +16,10 @@ public class Main {
             list.add(new People(scanner.nextLine().split(" ")));
             num--;
         }
-        System.out.println("Enter the number of search queries: ");
+        System.out.println("\nEnter the number of search queries: ");
         num = scanner.nextInt();
         while (num >= 0) {
-            System.out.println("Enter data to search people: ");
+            System.out.println("\nEnter data to search people: ");
             String find = scanner.next();
             List<People> result = new ArrayList<>();
             for (People item : list) {
@@ -28,12 +28,12 @@ public class Main {
                 }
             }
             if (result.size() > 0) {
-                System.out.println("Found people: ");
+                System.out.println("\nFound people: ");
                 for (People item : result) {
                     System.out.println(item.toString());
                 }
             } else {
-                System.out.println("No matching people found.");
+                System.out.println("\nNo matching people found.");
             }
             num--;
         }
