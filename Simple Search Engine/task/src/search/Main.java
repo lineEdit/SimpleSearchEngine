@@ -78,19 +78,16 @@ public class Main {
                                 System.out.println("\nEnter a name or email to search all suitable people.");
                                 find = scanner.nextLine();
                                 for (String item : list) {
-                                    boolean isNotContains = true;
-                                    for (String itemItem : item.split("\\s+")) {
-                                        if (item
-                                                .toLowerCase()
-                                                .replaceAll("\\s+", "")
-                                                .contains(find
-                                                        .toLowerCase()
-                                                        .replaceAll("\\s+", ""))) {
-                                            isNotContains = false;
-                                            break;
+                                    boolean flagNotContains = true;
+                                    for (String itemListSplit : item.split("\\s+")) {
+                                        for (String itemFindSplit : find.split("\\s+")) {
+                                            if (itemListSplit.compareToIgnoreCase(itemFindSplit) == 0) {
+                                                flagNotContains = false;
+                                                break;
+                                            }
                                         }
                                     }
-                                    if (isNotContains) {
+                                    if (flagNotContains) {
                                         result.add(item);
                                     }
                                 }
@@ -115,5 +112,16 @@ public class Main {
                     System.out.println("\nIncorrect option! Try again.");
             }
         }
+    }
+
+    static boolean containsString(String string, String find) {
+        for (String itemListSplit : string.split("\\s+")) {
+            for (String itemFindSplit : find.split("\\s+")) {
+                if (itemListSplit.compareToIgnoreCase(itemFindSplit) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
