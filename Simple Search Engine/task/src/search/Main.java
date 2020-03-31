@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -21,6 +19,21 @@ public class Main {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        Map<String, ArrayList<Integer>> map = new LinkedHashMap<>();
+        for (int i = 0; i < list.size(); ++i) {
+            for (String item : list.get(i).split(" ")) {
+                if (map.containsKey(item)) {
+                    map.get(item).add(i);
+                } else {
+                    ArrayList<Integer> integerList = new ArrayList<>();
+                    integerList.add(i);
+                    map.put(item, integerList);
+                }
+            }
+        }
+        for (String item : map.keySet()) {
+            System.out.println(item + map.get(item).toString());
         }
 
         Scanner scanner = new Scanner(System.in);
@@ -39,11 +52,16 @@ public class Main {
                     System.out.println("\nEnter a name or email to search all suitable people.");
                     String find = scanner.nextLine();
                     List<String> result = new ArrayList<>();
-                    for (String item : list) {
-                        if (item.toLowerCase().replaceAll(" ", "").contains(find.toLowerCase())) {
-                            result.add(item);
+//                    for (String item : list) {
+//                        if (item.toLowerCase().replaceAll(" ", "").contains(find.toLowerCase())) {
+//                            result.add(item);
+//                        }
+                        if (map.containsKey(find)) {
+                            for (Integer findKey : map.get(find)) {
+                                result.add(list.get(findKey));
+                            }
                         }
-                    }
+//                    }
                     if (result.size() > 0) {
                         System.out.println(result.size() + " persons found: ");
                         for (String item : result) {
