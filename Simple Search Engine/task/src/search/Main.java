@@ -1,5 +1,9 @@
 package search;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,15 +11,19 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the number of people: ");
-        int num = scanner.nextInt();
-        System.out.println("Enter all people: ");
         List<String> list = new ArrayList<>();
-        while (num >= 0) {
-            list.add(scanner.nextLine());
-            num--;
+        if (args.length == 2 && args[0].compareTo("--data") == 0) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(args[1]))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    list.add(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println(
                     "\n=== Menu ===\n" +
