@@ -45,6 +45,7 @@ public class Main {
                         }
                     }
                     if (result.size() > 0) {
+                        System.out.println(result.size() + " persons found: ");
                         for (String item : result) {
                             System.out.println(item);
                         }
