@@ -32,9 +32,9 @@ public class Main {
                 }
             }
         }
-        for (String item : map.keySet()) {
-            System.out.println(item + map.get(item).toString());
-        }
+//        for (String item : map.keySet()) {
+//            System.out.println(item + map.get(item).toString());
+//        }
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -49,19 +49,53 @@ public class Main {
                     System.out.println("\nBye!");
                     return;
                 case 1:
-                    System.out.println("\nEnter a name or email to search all suitable people.");
-                    String find = scanner.nextLine();
+                    System.out.println("Select a matching strategy: ALL, ANY, NONE");
                     List<String> result = new ArrayList<>();
-//                    for (String item : list) {
-//                        if (item.toLowerCase().replaceAll(" ", "").contains(find.toLowerCase())) {
-//                            result.add(item);
-//                        }
-                        if (map.containsKey(find)) {
-                            for (Integer findKey : map.get(find)) {
-                                result.add(list.get(findKey));
+                    String find = "";
+                    switch (scanner.nextLine()) {
+                        case "ALL":
+                            System.out.println("\nEnter a name or email to search all suitable people.");
+                            find = scanner.nextLine();
+                            for (String item : list) {
+                                if (item
+                                        .toLowerCase()
+                                        .replaceAll(" ", "")
+                                        .contains(find.toLowerCase())) {
+                                    result.add(item);
+                                }
                             }
-                        }
-//                    }
+                        break;
+                        case "ANY":
+                            System.out.println("\nEnter a name or email to search all suitable people.");
+                            find = scanner.nextLine();
+                            if (map.containsKey(find)) {
+                                for (Integer findKey : map.get(find)) {
+                                    result.add(list.get(findKey));
+                                }
+                            }
+                        break;
+                            case "NONE":
+                                System.out.println("\nEnter a name or email to search all suitable people.");
+                                find = scanner.nextLine();
+                                for (String item : list) {
+                                    boolean isNotContains = true;
+                                    for (String itemItem : item.split("\\s+")) {
+                                        if (item
+                                                .toLowerCase()
+                                                .replaceAll("\\s+", "")
+                                                .contains(find
+                                                        .toLowerCase()
+                                                        .replaceAll("\\s+", ""))) {
+                                            isNotContains = false;
+                                            break;
+                                        }
+                                    }
+                                    if (isNotContains) {
+                                        result.add(item);
+                                    }
+                                }
+                        break;
+                    }
                     if (result.size() > 0) {
                         System.out.println(result.size() + " persons found: ");
                         for (String item : result) {
