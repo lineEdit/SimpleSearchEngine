@@ -57,10 +57,7 @@ public class Main {
                             System.out.println("\nEnter a name or email to search all suitable people.");
                             find = scanner.nextLine();
                             for (String item : list) {
-                                if (item
-                                        .toLowerCase()
-                                        .replaceAll(" ", "")
-                                        .contains(find.toLowerCase())) {
+                                if (containsAllString(item, find)) {
                                     result.add(item);
                                 }
                             }
@@ -68,9 +65,9 @@ public class Main {
                         case "ANY":
                             System.out.println("\nEnter a name or email to search all suitable people.");
                             find = scanner.nextLine();
-                            if (map.containsKey(find)) {
-                                for (Integer findKey : map.get(find)) {
-                                    result.add(list.get(findKey));
+                            for (String item : list) {
+                                if (containsString(item, find)) {
+                                    result.add(item);
                                 }
                             }
                         break;
@@ -78,16 +75,7 @@ public class Main {
                                 System.out.println("\nEnter a name or email to search all suitable people.");
                                 find = scanner.nextLine();
                                 for (String item : list) {
-                                    boolean flagNotContains = true;
-                                    for (String itemListSplit : item.split("\\s+")) {
-                                        for (String itemFindSplit : find.split("\\s+")) {
-                                            if (itemListSplit.compareToIgnoreCase(itemFindSplit) == 0) {
-                                                flagNotContains = false;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (flagNotContains) {
+                                    if (!containsString(item, find)) {
                                         result.add(item);
                                     }
                                 }
@@ -112,6 +100,17 @@ public class Main {
                     System.out.println("\nIncorrect option! Try again.");
             }
         }
+    }
+
+    static boolean containsAllString(String string, String find) {
+        for (String itemListSplit : string.split("\\s+")) {
+            for (String itemFindSplit : find.split("\\s+")) {
+                if (itemListSplit.compareToIgnoreCase(itemFindSplit) != 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     static boolean containsString(String string, String find) {
